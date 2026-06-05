@@ -523,6 +523,14 @@ function Footer() {
   );
 }
 
+function Divider() {
+  return (
+    <div style={{
+      height: 1,
+      background: "linear-gradient(90deg, transparent, rgba(245,158,11,0.3), transparent)",
+    }} />
+  );
+}
 export default function App() {
   return (
     <>
@@ -545,6 +553,7 @@ export default function App() {
       <Hero />
       <Services />
       <Advantages />
+      <Divider />
       <Contact />
       <Footer />
     </>
