@@ -25,6 +25,30 @@ const SERVICES = [
   },
 ];
 
+function CounterCard({ value, label, delay, inView }) {
+  const numeric = parseInt(value);
+  const suffix = value.replace(/[0-9]/g, "");
+  const count = useCounter(numeric, inView);
+  return (
+    <div style={{
+      padding: "48px 24px", textAlign: "center",
+      background: "rgba(255,255,255,0.02)",
+      opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(30px)",
+      transition: `all 0.6s ease ${delay}ms`,
+    }}>
+      <div style={{
+        fontFamily: "'Exo 2', sans-serif", fontWeight: 900,
+        fontSize: "clamp(36px, 6vw, 56px)",
+        background: "linear-gradient(135deg, #fbbf24, #f59e0b)",
+        WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+        lineHeight: 1, marginBottom: 12,
+      }}>
+        {isNaN(numeric) ? value : `${count}${suffix}`}
+      </div>
+      <div style={{ color: "rgba(255,255,255,0.55)", fontFamily: "'Exo 2', sans-serif", fontSize: 15 }}>{label}</div>
+    </div>
+  );
+}
 const ADVANTAGES = [
   { value: "100+", label: "Реалізованих проєктів" },
   { value: "5+", label: "Років на ринку" },
@@ -44,6 +68,28 @@ function useInView(threshold = 0.15) {
     return () => obs.disconnect();
   }, []);
   return [ref, inView];
+}
+
+function useCounter(target, inView, duration = 2000) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    const numeric = parseInt(target);
+    if (isNaN(numeric)) return;
+    let start = 0;
+    const step = numeric / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= numeric) {
+        setCount(numeric);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [inView]);
+  return count;
 }
 
 function Navbar() {
@@ -310,26 +356,10 @@ function Advantages() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 2, borderRadius: 16, overflow: "hidden", border: "1px solid rgba(245,158,11,0.15)" }}>
-          {ADVANTAGES.map((a, i) => (
-            <div key={i} style={{
-              padding: "48px 24px", textAlign: "center",
-              background: "rgba(255,255,255,0.02)",
-              borderRight: i < ADVANTAGES.length - 1 ? "1px solid rgba(245,158,11,0.1)" : "none",
-              opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(30px)",
-              transition: `all 0.6s ease ${i * 120}ms`,
-            }}>
-              <div style={{
-                fontFamily: "'Exo 2', sans-serif", fontWeight: 900,
-                fontSize: "clamp(36px, 6vw, 56px)",
-                background: "linear-gradient(135deg, #fbbf24, #f59e0b)",
-                WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                lineHeight: 1, marginBottom: 12,
-              }}>{a.value}</div>
-              <div style={{ color: "rgba(255,255,255,0.55)", fontFamily: "'Exo 2', sans-serif", fontSize: 15 }}>{a.label}</div>
-            </div>
-          ))}
-        </div>
-
+        {ADVANTAGES.map((a, i) => (
+          <CounterCard key={i} {...a} delay={i * 120} inView={inView} />
+        ))}
+      </div>
         {/* Why us list */}
         <div style={{
           display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, marginTop: 48,
