@@ -90,13 +90,15 @@ function Navbar() {
               onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.75)"}
             >{l}</button>
           ))}
-          <a href="tel:+380938329811" style={{
-            padding: "8px 20px", borderRadius: 8,
-            background: "linear-gradient(135deg, #f59e0b, #d97706)",
-            color: "#0a0f1a", fontFamily: "'Exo 2', sans-serif", fontWeight: 700, fontSize: 14,
-            textDecoration: "none", transition: "opacity 0.2s",
-            boxShadow: "0 4px 16px rgba(245,158,11,0.35)",
-          }}>Зателефонувати</a>
+          <button onClick={() => document.getElementById("контакти")?.scrollIntoView({ behavior: "smooth" })}
+            style={{
+              padding: "8px 20px", borderRadius: 8,
+              background: "linear-gradient(135deg, #f59e0b, #d97706)",
+              color: "#0a0f1a", fontFamily: "'Exo 2', sans-serif", fontWeight: 700, fontSize: 14,
+              border: "none", cursor: "pointer",
+              boxShadow: "0 4px 16px rgba(245,158,11,0.35)",
+            }}>Зателефонувати</button>
+          
         </div>
 
         {/* Burger */}
@@ -202,19 +204,20 @@ function Hero() {
           opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(30px)",
           transition: "all 0.7s ease 0.45s",
         }}>
-          <a href="tel:+380938329811" style={{
-            padding: "16px 36px", borderRadius: 10,
-            background: "linear-gradient(135deg, #fbbf24, #d97706)",
-            color: "#0a0f1a", fontFamily: "'Exo 2', sans-serif", fontWeight: 800,
-            fontSize: 16, textDecoration: "none",
-            boxShadow: "0 8px 32px rgba(245,158,11,0.4)",
-            transition: "transform 0.2s, box-shadow 0.2s",
-          }}
+          <button onClick={() => document.getElementById("контакти")?.scrollIntoView({ behavior: "smooth" })}
+            style={{
+              padding: "16px 36px", borderRadius: 10,
+              background: "linear-gradient(135deg, #fbbf24, #d97706)",
+              color: "#0a0f1a", fontFamily: "'Exo 2', sans-serif", fontWeight: 800,
+              fontSize: 16, border: "none", cursor: "pointer",
+              boxShadow: "0 8px 32px rgba(245,158,11,0.4)",
+              transition: "transform 0.2s, box-shadow 0.2s",
+            }}
             onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(245,158,11,0.55)"; }}
             onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(245,158,11,0.4)"; }}
           >
             📞 Отримати консультацію
-          </a>
+          </button>
           <button onClick={() => document.getElementById("послуги")?.scrollIntoView({ behavior: "smooth" })}
             style={{
               padding: "16px 36px", borderRadius: 10,
