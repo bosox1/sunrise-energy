@@ -43,7 +43,7 @@ function CounterCard({ value, label, delay, inView }) {
         WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
         lineHeight: 1, marginBottom: 12,
       }}>
-        {isNaN(numeric) ? value : `${count}${suffix}`}
+        {value.includes("/") ? value : isNaN(numeric) ? value : `${count}${suffix}`}
       </div>
       <div style={{ color: "rgba(255,255,255,0.55)", fontFamily: "'Exo 2', sans-serif", fontSize: 15 }}>{label}</div>
     </div>
@@ -516,8 +516,11 @@ function Footer() {
         <span style={{ fontSize: 20 }}>☀️</span>
         <span style={{ color: "#fff", fontFamily: "'Exo 2', sans-serif", fontWeight: 700 }}>Sunrise <span style={{ color: "#f59e0b" }}>Energy</span></span>
       </div>
-      <p style={{ color: "rgba(255,255,255,0.3)", fontFamily: "'Exo 2', sans-serif", fontSize: 13, margin: 0 }}>
+      <p style={{ color: "rgba(255,255,255,0.3)", fontFamily: "'Exo 2', sans-serif", fontSize: 13, margin: "0 0 6px" }}>
         © {new Date().getFullYear()} Sunrise Energy Team · Коломия
+      </p>
+      <p style={{ color: "rgba(255,255,255,0.2)", fontFamily: "'Exo 2', sans-serif", fontSize: 11, margin: 0 }}>
+        Розробка: JJ Digital
       </p>
     </footer>
   );
